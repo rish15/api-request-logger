@@ -13,11 +13,14 @@
   ],
   "author": "rish15",
   "license": "ISC",
+  "engines": {
+    "node": "*"
+  },
   "repository": {
-    "properties": {
-      "url": {
-        "type": "https://github.com/rish15/api-request-logger"
-      }
-    }
-  }
+    "type": "git",
+    "url": "https://github.com/rish15/api-request-logger"
+  },
+  "bugs": {
+    "url": "https://github.com/rish15/api-request-logger/issues"
+  },
 }
