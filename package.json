@@ -12,5 +12,12 @@
     "nodejs"
   ],
   "author": "rish15",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "properties": {
+      "url": {
+        "type": "https://github.com/rish15/api-request-logger"
+      }
+    }
+  }
 }
