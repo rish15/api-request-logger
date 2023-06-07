@@ -4,20 +4,20 @@ function APILogger(req, res, next) {
   const startTime = performance.now();
 
   const requestId = require("crypto").randomBytes(16).toString("hex");
-  req.headers["X-request-id"] = requestId;
+  req.headers["x-spintly-id"] = requestId;
   res.on("finish", () => {
     const endTime = performance.now();
     const latency = endTime - startTime;
-    console.log(`API latency: ${latency.toFixed(2)} ms`);
     const logData = {
       requestUrl: req.protocol + "://" + req.get("host") + req.originalUrl,
-      method: req.method,
+      requestMethod: req.method,
       userAgent: req.headers["user-agent"],
-      xRequestId: req.headers["X-request-id"],
+      'x-request-id': req.headers["x-spintly-id"],
       apiLatency: latency,
-      apiCalledAt: new Date().toISOString(),
+      time: new Date().toISOString(),
       reqBody: req.body,
       env: process.env.NODE_ENV,
+      msg: 'api_stats'
     };
     console.log(JSON.stringify(logData));
   });
