@@ -22,5 +22,9 @@
   },
   "bugs": {
     "url": "https://github.com/rish15/api-request-logger/issues"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "winston": "^3.9.0"
   }
 }
