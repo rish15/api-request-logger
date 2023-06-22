@@ -1,6 +1,6 @@
 const { performance } = require("perf_hooks");
 const chalk = require("chalk");
-const { log } = require("./logger/log");
+const { Log } = require("./logger/log");
 
 function APILogger(req, res, next) {
   const startTime = performance.now();
@@ -31,4 +31,7 @@ function APILogger(req, res, next) {
   next();
 }
 
-module.exports = APILogger;
+module.exports.Log = {
+  APILogger,
+  Log,
+};
