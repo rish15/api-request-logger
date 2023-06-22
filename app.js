@@ -7,7 +7,7 @@ function APILogger(req, res, next) {
 
   if (!req.headers["X-request-id"]) {
     const requestId = require("crypto").randomBytes(16).toString("hex");
-    log.defaultMeta["requestId"] = requestId;
+    Log.defaultMeta["requestId"] = requestId;
   }
   res.on("finish", () => {
     const endTime = performance.now();
