@@ -31,7 +31,4 @@ function APILogger(req, res, next) {
   next();
 }
 
-module.exports.Log = {
-  APILogger,
-  Log,
-};
+module.exports.apiStatLogger = APILogger;
