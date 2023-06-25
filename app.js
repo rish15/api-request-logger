@@ -11,13 +11,14 @@ const APILogger = (req, res, next) => {
     const latency = endTime - startTime;
     const logData = {
       requestUrl: req.protocol + "://" + req.get("host") + req.originalUrl,
-      method: req.method,
+      requestMethod: req.method,
       userAgent: req.headers["user-agent"],
-      xRequestId: req.headers["x-request-id"],
+      xRequestId: req.headers["X-request-id"],
       apiLatency: latency,
-      apiCalledAt: new Date().toISOString(),
+      time: new Date().toISOString(),
       reqBody: req.body,
       env: process.env.NODE_ENV,
+      msg: "api_stats",
     };
     console.log(
       `[${chalk.bgWhiteBright(chalk.black("API STATS"))}]`,
