@@ -2,7 +2,7 @@ const { performance } = require("perf_hooks");
 const chalk = require("chalk");
 const { log } = require("./logger/log");
 
-const APILogger = (req, res, next) => {
+const apiLogger = (req, res, next) => {
   const startTime = performance.now();
   processRequestId(req);
 
@@ -28,11 +28,11 @@ const APILogger = (req, res, next) => {
 
   next();
 }
-module.exports.APILogger = APILogger;
+module.exports.apiLogger = apiLogger;
+
 /**
  * @description generates `[X-request-id]` if not present in headers and appends it to the `req.headers` & log instance
  * @param {object} req - express req instance
- * @returns {string} requestId - 
  */
 const processRequestId = (req) => {
   if (!req.headers["X-request-id"]) {

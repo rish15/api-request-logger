@@ -1,6 +1,6 @@
-const { APILogger } = require('./app')
+const { apiLogger } = require('./app')
 const { log } = require('./logger/log')
 module.exports = {
-  APILogger,
+  apiLogger,
   log,
 };
