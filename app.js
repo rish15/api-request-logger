@@ -37,6 +37,7 @@ module.exports.APILogger = APILogger;
 const processRequestId = (req) => {
   if (!req.headers["X-request-id"]) {
     const requestId = require("crypto").randomBytes(16).toString("hex");
+    req.headers['X-request-id'] = requestId;
     log.defaultMeta["requestId"] = requestId;
     return requestId;
   } else if (req.headers["X-request-id"]) {
