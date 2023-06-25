@@ -53,7 +53,7 @@ log.error("This is an error");
 ```
 
 ##### changing log level 
-In the .env file or any configuration file that your app uses, export an env variable LOG_LEVL=level where level is the log levels supported by winston. By default log level is set to ```info``` 
+In the .env file or any configuration file that your app uses, export an env variable LOG_LEVEL=level where level is the log levels supported by winston. By default log level is set to ```info``` 
 ```.env 
 LOG_LEVEL=debug
 ```
