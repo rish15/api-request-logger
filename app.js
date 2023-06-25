@@ -1,12 +1,10 @@
 const { performance } = require("perf_hooks");
+const chalk = require("chalk");
+const { log } = require("./logger/log");
 
-function APILogger(req, res, next) {
+const apiLogger = (req, res, next) => {
   const startTime = performance.now();
-
-  const requestId = require("crypto").randomBytes(16).toString("hex");
-  if (!req.headers['X-request-id']) {
-    req.headers["X-request-id"] = requestId;
-  }
+  processRequestId(req);
 
   res.on("finish", () => {
     const endTime = performance.now();
@@ -22,10 +20,27 @@ function APILogger(req, res, next) {
       env: process.env.NODE_ENV,
       msg: "api_stats",
     };
-    console.log(JSON.stringify(logData));
+    console.log(
+      `[${chalk.bgWhiteBright(chalk.black("API STATS"))}]`,
+      chalk.blue.bold(JSON.stringify(logData))
+    );
   });
 
   next();
 }
+module.exports.apiLogger = apiLogger;
 
-module.exports = APILogger;
+/**
+ * @description generates `[X-request-id]` if not present in headers and appends it to the `req.headers` & log instance
+ * @param {object} req - express req instance
+ */
+const processRequestId = (req) => {
+  if (!req.headers["X-request-id"]) {
+    const requestId = require("crypto").randomBytes(16).toString("hex");
+    req.headers['X-request-id'] = requestId;
+    log.defaultMeta["requestId"] = requestId;
+    return requestId;
+  } else if (req.headers["X-request-id"]) {
+    log.defaultMeta["requestId"] = req.headers["X-request-id"];
+  }
+}
