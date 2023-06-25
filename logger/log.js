@@ -1,10 +1,11 @@
 const winston = require("winston");
 const { colorizeLevel } = require("./helpers/colorizeLevels");
+require("dotenv").config();
 
 const log = winston.createLogger({
   /** initialize requestId */
   defaultMeta: { requestId: "" },
-  level: "info",
+  level: process.env.LOG_LEVEL || 'info',
   format: winston.format.combine(
     colorizeLevel(),
     winston.format.timestamp(),
@@ -17,4 +18,4 @@ const log = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-module.exports.Log = log;
+module.exports.log = log;

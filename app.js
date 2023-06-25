@@ -1,14 +1,11 @@
 const { performance } = require("perf_hooks");
 const chalk = require("chalk");
-const { Log } = require("./logger/log");
+const { log } = require("./logger/log");
 
-function APILogger(req, res, next) {
+const APILogger = (req, res, next) => {
   const startTime = performance.now();
+  processRequestId(req);
 
-  if (!req.headers["X-request-id"]) {
-    const requestId = require("crypto").randomBytes(16).toString("hex");
-    Log.defaultMeta["requestId"] = requestId;
-  }
   res.on("finish", () => {
     const endTime = performance.now();
     const latency = endTime - startTime;
@@ -16,7 +13,7 @@ function APILogger(req, res, next) {
       requestUrl: req.protocol + "://" + req.get("host") + req.originalUrl,
       method: req.method,
       userAgent: req.headers["user-agent"],
-      xRequestId: req.headers["X-request-id"],
+      xRequestId: req.headers["x-request-id"],
       apiLatency: latency,
       apiCalledAt: new Date().toISOString(),
       reqBody: req.body,
@@ -30,5 +27,18 @@ function APILogger(req, res, next) {
 
   next();
 }
-
-module.exports.apiStatLogger = APILogger;
+module.exports.APILogger = APILogger;
+/**
+ * @description generates `[X-request-id]` if not present in headers and appends it to the `req.headers` & log instance
+ * @param {object} req - express req instance
+ * @returns {string} requestId - 
+ */
+const processRequestId = (req) => {
+  if (!req.headers["X-request-id"]) {
+    const requestId = require("crypto").randomBytes(16).toString("hex");
+    log.defaultMeta["requestId"] = requestId;
+    return requestId;
+  } else if (req.headers["X-request-id"]) {
+    log.defaultMeta["requestId"] = req.headers["X-request-id"];
+  }
+}
