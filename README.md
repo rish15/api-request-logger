@@ -7,6 +7,7 @@
 ### The why ?
 
 So we wanted to track every request that comes to the server with some metadata such as userAgent, reqBody, apiPath, apiLatency so I put together a simple minimilistic middleware which can be injected in one liner and start giving data to be analysed.
+Adding to that it also provides a wrapper over winston library for logging, helping in generting formatted logs and requestId associated with the log statemenet.
 
 ## Getting started
 
@@ -18,9 +19,9 @@ So we wanted to track every request that comes to the server with some metadata 
 
 ##### import the module
 
-`const apiLogger = require('api-request-logger');`
+`const { APILogger } = require("api-request-logger");`
 
-`app.use(apiLogger)` add this line before the routes in the entry file
+`app.use(APILogger)` add this line before the routes in the entry file
 
 
 Logging format 
@@ -38,3 +39,24 @@ Logging format
   "msg": "api_stats"
 }
 ```
+
+### Logging 
+log is an just a wrapper over winston library, it formats the logs in [level] [timestamp] [requestId] [logs] it appends the requestId to every log statement.
+##### import the module 
+`const { log } = require("api-request-logger");`
+
+Example 
+```javascript 
+log.info("This is an info");
+log.warn("This is a warning");
+log.error("This is an error");
+```
+
+##### changing log level 
+In the .env file or any configuration file that your app uses, export an env variable LOG_LEVL=level where level is the log levels supported by winston. By default log level is set to ```info``` 
+```.env 
+LOG_LEVEL=debug
+```
+
+
+
