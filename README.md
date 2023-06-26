@@ -53,6 +53,8 @@ log.error("This is an error");
 ```
 
 ##### changing log level 
+For detailed log level priorities refer this [winston log levels](https://github.com/winstonjs/winston#logging-levels)
+
 In the .env file or any configuration file that your app uses, export an env variable LOG_LEVEL=level where level is the log levels supported by winston. By default log level is set to ```info``` 
 ```.env 
 LOG_LEVEL=debug
