@@ -17,11 +17,10 @@ Adding to that it also provides a wrapper over winston library for logging, help
 
 ## Usage
 
-##### import the module
-
-`const { APILogger } = require("api-request-logger");`
-
-`app.use(APILogger)` add this line before the routes in the entry file
+```javascript 
+const { apiLogger } = require("api-request-logger");`
+app.use(apiLogger)` add this line before the routes in the entry file
+```
 
 
 Logging format 
@@ -41,8 +40,8 @@ Logging format
 ```
 
 ### Logging 
-log is an just a wrapper over winston library, it formats the logs in [level] [timestamp] [requestId] [logs] it appends the requestId to every log statement.
-##### import the module 
+the log is just a wrapper over the Winston library, it formats the logs in [level] [timestamp] [requestId] [logs] it appends the requestId to every log statement.
+##### Import the module 
 `const { log } = require("api-request-logger");`
 
 Example 
@@ -55,7 +54,7 @@ log.error("This is an error");
 ##### changing log level 
 For detailed log level priorities refer this [winston log levels](https://github.com/winstonjs/winston#logging-levels)
 
-In the .env file or any configuration file that your app uses, export an env variable LOG_LEVEL=level where level is the log levels supported by winston. By default log level is set to ```info``` 
+In the .env file or any configuration file that your app uses, export an env variable LOG_LEVEL=level where the level is the log levels supported by Winston. By default log level is set to ```info``` 
 ```.env 
 LOG_LEVEL=debug
 ```
